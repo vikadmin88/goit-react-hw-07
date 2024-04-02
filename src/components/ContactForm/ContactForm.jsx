@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 import * as Yup from "yup";
 import css from './ContactForm.module.css'
 
@@ -15,13 +15,12 @@ const ContactForm = () => {
       .required("Required"),
 
     number: Yup.string()
-      .matches(/^\d{3}-\d{2}-\d{2}$/, 'Number format: XXX-XX-XX')
+      .matches(/^\d{3}-\d{3}-\d{4}$/, 'Number format: XXX-XXX-XXXX')
       .required("Required")
   });
 
   const handleSubmit = (values, actions) => {
     dispatch(addContact({
-      id: '',
       name: values.name.trim(),
       number: values.number.trim()
     }));
